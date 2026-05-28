@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Player, Registration } from '@/lib/types'
+import * as XLSX from 'xlsx'
 
 export default function AdminPlayers() {
   const [players, setPlayers] = useState<Player[]>([])
@@ -83,6 +84,35 @@ export default function AdminPlayers() {
 
   const pendingRegistrations = registrations.filter(r => !r.added_to_tournament)
   const addedRegistrations = registrations.filter(r => r.added_to_tournament)
+
+  function exportToExcel() {
+    const wb = XLSX.utils.book_new()
+
+    // Oyuncular sayfası
+    const playerData = players.map((p, i) => ({
+      'Sıra': i + 1,
+      'Ad Soyad': p.name,
+    }))
+    const ws = XLSX.utils.json_to_sheet(playerData)
+    ws['!cols'] = [{ wch: 6 }, { wch: 30 }]
+    XLSX.utils.book_append_sheet(wb, ws, 'Oyuncular')
+
+    // Başvurular sayfası (varsa)
+    if (registrations.length > 0) {
+      const regData = registrations.map((r, i) => ({
+        'Sıra': i + 1,
+        'Ad Soyad': r.name,
+        'Daire': r.apartment,
+        'Başvuru Tarihi': new Date(r.created_at).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        'Durum': r.added_to_tournament ? 'Eklendi' : 'Bekliyor',
+      }))
+      const ws2 = XLSX.utils.json_to_sheet(regData)
+      ws2['!cols'] = [{ wch: 6 }, { wch: 30 }, { wch: 10 }, { wch: 22 }, { wch: 12 }]
+      XLSX.utils.book_append_sheet(wb, ws2, 'Başvurular')
+    }
+
+    XLSX.writeFile(wb, `tavla-turnuvasi-oyuncular-${new Date().toISOString().slice(0, 10)}.xlsx`)
+  }
 
   return (
     <div className="max-w-2xl space-y-8">
@@ -198,10 +228,19 @@ export default function AdminPlayers() {
         </div>
       ) : (
         <div>
-          <h2 className="font-semibold mb-3" style={{ color: '#f0e6d3' }}>
-            Turnuva Oyuncuları
-            <span className="ml-2 text-sm font-normal" style={{ color: '#6b6b8a' }}>{players.length} kişi</span>
-          </h2>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-semibold" style={{ color: '#f0e6d3' }}>
+              Turnuva Oyuncuları
+              <span className="ml-2 text-sm font-normal" style={{ color: '#6b6b8a' }}>{players.length} kişi</span>
+            </h2>
+            <button
+              onClick={exportToExcel}
+              className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg font-semibold transition-all hover:scale-105"
+              style={{ background: 'rgba(34,197,94,0.12)', color: '#22c55e', border: '1px solid rgba(34,197,94,0.3)' }}
+            >
+              📥 Excel
+            </button>
+          </div>
           <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid #2a2a3a' }}>
             <AnimatePresence mode="popLayout">
               {players.map((player, idx) => (
