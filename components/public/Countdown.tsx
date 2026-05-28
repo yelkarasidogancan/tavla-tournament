@@ -32,7 +32,7 @@ function Digit({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center">
       <div
-        className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center overflow-hidden"
+        className="relative w-14 h-14 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center overflow-hidden"
         style={{ background: '#13131a', border: '1px solid #2a2a3a' }}
       >
         {/* Gold shimmer top line */}
@@ -44,14 +44,14 @@ function Digit({ value, label }: { value: number; label: string }) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 20, opacity: 0 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="font-display text-4xl sm:text-5xl font-black tabular-nums"
+            className="font-display text-2xl sm:text-4xl font-black tabular-nums"
             style={{ color: '#D4AF37' }}
           >
             {display}
           </motion.span>
         </AnimatePresence>
       </div>
-      <span className="mt-2 text-xs font-semibold tracking-widest uppercase" style={{ color: '#6b6b8a' }}>
+      <span className="mt-1.5 text-xs font-semibold tracking-widest uppercase" style={{ color: '#6b6b8a' }}>
         {label}
       </span>
     </div>
@@ -94,7 +94,7 @@ export default function Countdown({ targetDate, location }: Props) {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="rounded-3xl py-10 px-6 text-center"
+      className="rounded-3xl py-8 sm:py-10 px-3 sm:px-6 text-center"
       style={{
         background: 'linear-gradient(135deg, #13131a 0%, #1a1a24 100%)',
         border: '1px solid #2a2a3a',
@@ -105,14 +105,14 @@ export default function Countdown({ targetDate, location }: Props) {
         Başlamasına Kalan Süre
       </p>
 
-      <div className="flex items-end justify-center gap-4 sm:gap-6">
+      <div className="flex items-end justify-center gap-1.5 sm:gap-4">
         <Digit value={time.days} label="Gün" />
-        <span className="text-3xl font-bold mb-10 hidden sm:block" style={{ color: '#2a2a3a' }}>:</span>
+        <span className="text-xl sm:text-3xl font-bold mb-8 sm:mb-10" style={{ color: '#3a3a4a' }}>:</span>
         <Digit value={time.hours} label="Saat" />
-        <span className="text-3xl font-bold mb-10" style={{ color: '#2a2a3a' }}>:</span>
-        <Digit value={time.minutes} label="Dakika" />
-        <span className="text-3xl font-bold mb-10" style={{ color: '#2a2a3a' }}>:</span>
-        <Digit value={time.seconds} label="Saniye" />
+        <span className="text-xl sm:text-3xl font-bold mb-8 sm:mb-10" style={{ color: '#3a3a4a' }}>:</span>
+        <Digit value={time.minutes} label="Dak" />
+        <span className="text-xl sm:text-3xl font-bold mb-8 sm:mb-10" style={{ color: '#3a3a4a' }}>:</span>
+        <Digit value={time.seconds} label="Sn" />
       </div>
 
       <div className="mt-8 space-y-2">

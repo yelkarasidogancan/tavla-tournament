@@ -88,13 +88,17 @@ export default function AdminPlayers() {
   function exportToExcel() {
     const wb = XLSX.utils.book_new()
 
-    // Oyuncular sayfası
+    // İsimden daire numarasını bul (başvuru kaydından)
+    const apartmentByName = new Map(registrations.map(r => [r.name.trim().toLowerCase(), r.apartment]))
+
+    // Oyuncular sayfası (daire dahil)
     const playerData = players.map((p, i) => ({
       'Sıra': i + 1,
       'Ad Soyad': p.name,
+      'Daire': apartmentByName.get(p.name.trim().toLowerCase()) ?? '—',
     }))
     const ws = XLSX.utils.json_to_sheet(playerData)
-    ws['!cols'] = [{ wch: 6 }, { wch: 30 }]
+    ws['!cols'] = [{ wch: 6 }, { wch: 30 }, { wch: 12 }]
     XLSX.utils.book_append_sheet(wb, ws, 'Oyuncular')
 
     // Başvurular sayfası (varsa)
