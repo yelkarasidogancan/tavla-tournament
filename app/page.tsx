@@ -118,7 +118,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-10 space-y-12">
+      <main className="max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-10 space-y-8 sm:space-y-12">
         {/* Champion banner */}
         <AnimatePresence>
           {champion && (
@@ -150,10 +150,10 @@ export default function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <h2 className="font-display text-5xl md:text-6xl font-black leading-tight" style={{ color: '#f0e6d3' }}>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight" style={{ color: '#f0e6d3' }}>
             Turnuva <span className="gold-shimmer">Canlı</span>
           </h2>
-          <p className="mt-4 text-lg" style={{ color: '#6b6b8a' }}>
+          <p className="mt-3 text-base sm:text-lg" style={{ color: '#6b6b8a' }}>
             {totalPlayers} oyuncu · {groups.length} grup · Gerçek zamanlı takip
           </p>
           {tournament?.location && (
@@ -193,20 +193,20 @@ export default function HomePage() {
         </div>
 
         {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="grid grid-cols-2 sm:flex sm:flex-row gap-3 sm:gap-4 justify-center">
           <Link href="/groups"
-            className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-base font-semibold transition-all hover:scale-105"
+            className="flex items-center justify-center gap-2 px-4 sm:px-8 py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-semibold transition-all active:scale-95 hover:scale-105"
             style={{ background: '#13131a', color: '#f0e6d3', border: '1px solid #2a2a3a' }}>
-            📊 Grup Sıralamaları
+            📊 Gruplar
           </Link>
           <Link href="/bracket"
-            className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-base font-bold transition-all hover:scale-105"
+            className="flex items-center justify-center gap-2 px-4 sm:px-8 py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-bold transition-all active:scale-95 hover:scale-105"
             style={{
               background: 'linear-gradient(135deg, #D4AF37, #A08020)',
               color: '#0a0a0f',
               boxShadow: '0 0 30px rgba(212,175,55,0.25)',
             }}>
-            🏆 Eleme Bracket
+            🏆 Bracket
           </Link>
         </div>
 

@@ -34,16 +34,18 @@ export default function GroupTable({ group, advancesPerGroup }: Props) {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
+        <table className="w-full text-xs sm:text-sm">
           <thead>
             <tr style={{ borderBottom: '1px solid #2a2a3a' }}>
-              <th className="text-left px-5 py-2 font-medium" style={{ color: '#6b6b8a' }}>#</th>
+              <th className="text-left px-2 sm:px-4 py-2 font-medium w-8" style={{ color: '#6b6b8a' }}>#</th>
               <th className="text-left px-2 py-2 font-medium" style={{ color: '#6b6b8a' }}>Oyuncu</th>
-              <th className="text-center px-2 py-2 font-medium" style={{ color: '#6b6b8a' }}>O</th>
+              {/* Maç sayısı — mobilde gizle */}
+              <th className="hidden sm:table-cell text-center px-2 py-2 font-medium" style={{ color: '#6b6b8a' }}>O</th>
               <th className="text-center px-2 py-2 font-medium" style={{ color: '#6b6b8a' }}>G</th>
               <th className="text-center px-2 py-2 font-medium" style={{ color: '#6b6b8a' }}>M</th>
-              <th className="text-center px-2 py-2 font-medium" style={{ color: '#6b6b8a' }}>Av</th>
-              <th className="text-center px-4 py-2 font-bold" style={{ color: '#D4AF37' }}>Puan</th>
+              {/* Averaj — mobilde gizle */}
+              <th className="hidden sm:table-cell text-center px-2 py-2 font-medium" style={{ color: '#6b6b8a' }}>Av</th>
+              <th className="text-center px-2 sm:px-4 py-2 font-bold" style={{ color: '#D4AF37' }}>Puan</th>
             </tr>
           </thead>
           <tbody>
@@ -62,29 +64,29 @@ export default function GroupTable({ group, advancesPerGroup }: Props) {
                     borderLeft: isAdvancing ? '3px solid #D4AF37' : '3px solid transparent',
                   }}
                 >
-                  <td className="px-4 py-3 font-bold text-center" style={{ color: isAdvancing ? '#D4AF37' : '#6b6b8a' }}>
+                  <td className="px-2 sm:px-4 py-2.5 sm:py-3 font-bold text-center" style={{ color: isAdvancing ? '#D4AF37' : '#6b6b8a' }}>
                     {idx + 1}
                   </td>
-                  <td className="px-2 py-3">
-                    <div className="flex items-center gap-2">
+                  <td className="px-2 py-2.5 sm:py-3">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
                       <PlayerDot name={gp.player?.name ?? ''} />
-                      <span className="font-medium" style={{ color: isAdvancing ? '#f0e6d3' : '#a0a0b8' }}>
+                      <span className="font-medium truncate max-w-[100px] sm:max-w-none" style={{ color: isAdvancing ? '#f0e6d3' : '#a0a0b8' }}>
                         {gp.player?.name ?? '—'}
                       </span>
                       {isAdvancing && (
-                        <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: 'rgba(212,175,55,0.15)', color: '#D4AF37' }}>
+                        <span className="flex-shrink-0 text-xs px-1 py-0.5 rounded" style={{ background: 'rgba(212,175,55,0.15)', color: '#D4AF37' }}>
                           ↑
                         </span>
                       )}
                     </div>
                   </td>
-                  <td className="text-center px-2 py-3" style={{ color: '#6b6b8a' }}>{gp.wins + gp.losses}</td>
-                  <td className="text-center px-2 py-3" style={{ color: '#4ade80' }}>{gp.wins}</td>
-                  <td className="text-center px-2 py-3" style={{ color: '#f87171' }}>{gp.losses}</td>
-                  <td className="text-center px-2 py-3" style={{ color: scoreDiff > 0 ? '#4ade80' : scoreDiff < 0 ? '#f87171' : '#6b6b8a' }}>
+                  <td className="hidden sm:table-cell text-center px-2 py-2.5 sm:py-3" style={{ color: '#6b6b8a' }}>{gp.wins + gp.losses}</td>
+                  <td className="text-center px-2 py-2.5 sm:py-3" style={{ color: '#4ade80' }}>{gp.wins}</td>
+                  <td className="text-center px-2 py-2.5 sm:py-3" style={{ color: '#f87171' }}>{gp.losses}</td>
+                  <td className="hidden sm:table-cell text-center px-2 py-2.5 sm:py-3" style={{ color: scoreDiff > 0 ? '#4ade80' : scoreDiff < 0 ? '#f87171' : '#6b6b8a' }}>
                     {scoreDiff > 0 ? '+' : ''}{scoreDiff}
                   </td>
-                  <td className="text-center px-4 py-3 font-bold text-base" style={{ color: isAdvancing ? '#D4AF37' : '#f0e6d3' }}>
+                  <td className="text-center px-2 sm:px-4 py-2.5 sm:py-3 font-bold" style={{ color: isAdvancing ? '#D4AF37' : '#f0e6d3' }}>
                     {gp.points}
                   </td>
                 </motion.tr>

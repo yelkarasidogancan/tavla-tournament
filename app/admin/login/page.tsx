@@ -20,7 +20,9 @@ export default function AdminLogin() {
     })
     const data = await res.json()
     if (data.ok) {
-      router.push('/admin')
+      // router.push App Router cache'i nedeniyle yeni cookie'yi tanımıyor;
+      // window.location ile tam sayfa yüklemesi yaparak session'ı düzgün okut
+      window.location.href = '/admin'
     } else {
       setError(data.error || 'Hatalı şifre')
     }

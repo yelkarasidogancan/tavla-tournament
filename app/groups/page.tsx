@@ -70,13 +70,13 @@ export default function GroupsPage() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-8">
+      <main className="max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-8">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-6 sm:mb-8"
         >
-          <h1 className="font-display text-4xl font-bold" style={{ color: '#f0e6d3' }}>
+          <h1 className="font-display text-2xl sm:text-4xl font-bold" style={{ color: '#f0e6d3' }}>
             Grup <span className="gold-shimmer">Sıralamaları</span>
           </h1>
           <p className="mt-2" style={{ color: '#6b6b8a' }}>
