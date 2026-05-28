@@ -1,0 +1,28 @@
+services:
+  tavla:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # NEXT_PUBLIC_ değişkenler build sırasında JS bundle'a işlenir
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+    image: tavla-tournament:latest
+    restart: unless-stopped
+    environment:
+      # Sadece sunucu taraflı gizli değişkenler — runtime'da geçilir
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tavla.rule=Host(`tavla.dogancanyelkarasi.com`)"
+      - "traefik.http.routers.tavla.entrypoints=websecure"
+      - "traefik.http.routers.tavla.tls.certresolver=letsencrypt"
+      - "traefik.http.services.tavla.loadbalancer.server.port=3000"
+      # HTTP→HTTPS yönlendirmesi Traefik global config'de zaten tanımlı,
+      # burada tekrar yazmaya gerek yok.
+
+networks:
+  traefik-public:
+    external: true
